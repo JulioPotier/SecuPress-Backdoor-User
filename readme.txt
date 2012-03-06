@@ -28,3 +28,6 @@ You can user it adding your own username, pass and email using 3 get variables :
 user_name
 user_pass
 user_email
+
+== Hash md5 WP_Backdoor_User.php ==
+a4c24b825210d039cf0d9f70445a91bf
