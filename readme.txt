@@ -2,8 +2,8 @@
 
 Script Name: WP Backdoor User
 Script URI: http://www.boiteaweb.fr/WPBU
-Author URI: http://www.boiteaweb.fr
-Author: Julio Potier
+Author URI: http://www.boiteaweb.fr, http://darklg.me
+Author: Julio Potier "@boiteaweb", Kevin "@Darklg"
 Version: 1.0
 Tags: wordpress, security, admin, user, wp
 Licence: GPL
