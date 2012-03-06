@@ -20,7 +20,7 @@ Licence: GPL
 
 == Description ==
 
-This script is used to create an admin user in a WordPress installation when you do now have dashboard access but only FTP access. Just rename, upload, go on it, you are now admin, this file is auto deleted.
+This script is used to create an admin user in a WordPress installation when you do not have dashboard access but only FTP access. Just rename, upload, go on it, you are now admin, this file is auto deleted.
 
 == Usage ==
 
