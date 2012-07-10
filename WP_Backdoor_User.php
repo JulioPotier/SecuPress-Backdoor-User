@@ -6,7 +6,7 @@ Script Name: WP Backdoor User
 Script URI: http://www.boiteaweb.fr/WPBU
 Author URI: http://www.boiteaweb.fr
 Author: Julio Potier
-Version: 2.0
+Version: 2.1
 Tags: wordpress, security, admin, user, wp
 License: GPL
 **********************************************/
@@ -22,8 +22,6 @@ while( !is_file( 'wp-load.php' ) ) {
 		die( 'EN: Could not find WordPress! FR : Impossible de trouver WordPress !' );
 }
 require_once( 'wp-load.php' );
-// Require all admin users functions
-require_once( ABSPATH . '/wp-admin/includes/user.php');
 
 // Get all roles
 $roles = new WP_Roles();
@@ -119,18 +117,25 @@ endswitch;
 endif;
 
 // Create selectbox for roles
-$select_role = '';
+$select_roles = '';
 foreach( $roles as $krole=>$i18nrole )
 	$select_roles .= '<option value="'.$krole.'">'.$i18nrole.'</option>'."\n";
 
 // Get all users
-$all_users = get_users();
+if( function_exists( 'get_users' ) )
+	$all_users = get_users();
+else {
+	$usersID = $wpdb->get_col( 'SELECT ID FROM ' . $wpdb->users . ' ORDER BY ID ASC' );
+	foreach ( $usersID as $uid ) 
+		$all_users[] = get_userdata( $uid );
+}
 
 // Create selectbox for users
 $select_users = '';	
 foreach( $all_users as $user ):
 	$the_user = new WP_User( $user->ID );
-	$select_users .= '<option value="'.$user->ID.'">' . $user->user_login . ' (' . $the_user->roles[0] . ')</option>'."\n";
+	if( isset( $the_user->roles[0] ) )
+		$select_users .= '<option value="'.$user->ID.'">' . $user->user_login . ' (' . $the_user->roles[0] . ')</option>'."\n";
 endforeach;
 
 // HTML CODE
