@@ -66,7 +66,7 @@ switch( $_REQUEST['action'] ):
 			exit();
 		endif;
 		// Little message
-		$msg='User created!';
+		$msg = __('User created!');
 	break;
 	
 	// login user action
@@ -89,7 +89,7 @@ switch( $_REQUEST['action'] ):
 	case 'delete_user':
 		// Delete this user and re-attribute is needed
 		wp_delete_user( $_REQUEST['user_ID'], $_REQUEST['new_user_ID'] );
-		$msg = 'User deleted!';
+		$msg = __('User deleted!');
 	break;
 	case 'edit_user':
 		// If a role change is needed
@@ -98,19 +98,19 @@ switch( $_REQUEST['action'] ):
 			$user = new WP_User( $_REQUEST['user_ID'] );
 			// Set his role
 			$user->set_role( $_REQUEST['user_role'] ); 
-			$msg = 'User updated!';
+			$msg = __('User updated!');
 		endif;
 		// If a pass chage is needed
 		if( $_REQUEST['user_pass'] != '' ):
 			// update the member's pass
 			wp_update_user( array( 'ID'=>$_REQUEST['user_ID'], 'user_pass' => $_REQUEST['user_pass'] ) );
-			$msg = 'User updated!';
+			$msg = __('User updated!');
 		endif;
 	break;
 	case 'delete_file':
 		// just unlink the file
 		unlink( __FILE__ );
-		$msg = 'File deleted!';
+		$msg = __('File deleted!');
 	break;
 endswitch;
 
