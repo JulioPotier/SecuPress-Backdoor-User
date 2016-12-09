@@ -517,3 +517,120 @@ HTML;
 								<select name="user_role" id="edit_user_role" class="form-control">
 									<option selected="selected" value="-1">Do not change</option>
 									<?php echo $select_roles; ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="edit_user_pass" class="col-sm-4 col-form-label">New Pass</label>
+							<div class="col-sm-8">
+								<input type="text" name="user_pass" id="edit_user_pass" class="form-control" placeholder="Do not change">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<div class="col-sm-9">
+								<div class="alert alert-warning" role="alert">
+									<small>
+										<i class="fa fa-warning"></i>
+										Do not forget to delete this file after use!
+									</small>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<button type="submit" class="btn btn-block btn-lg btn-warning">
+									<i class="fa fa-vcard"></i>
+									Edit this user
+								</button>
+							</div>
+						</div>
+					</form>
+					<hr>
+				</section>
+
+				<section id="section-delete" class="col-xs-12">
+					<h2>
+						<small class="fa-stack fa-lg text-danger">
+							<i class="fa fa-circle fa-stack-2x"></i>
+  							<i class="fa fa-stack-1x fa-inverse fa-user-times"></i>
+						</small>
+						Delete WP User
+					</h2>
+					<form method="post" role="form">
+						<input type="hidden" name="action" value="delete_user" />
+
+						<div class="alert alert-warning text-xs-center" role="alert">
+							<i class="fa fa-warning"></i>
+							<strong>
+								Take care, do not delete all users! You're warned.
+							</strong>
+						</div>
+
+						<div class="form-group row">
+							<label for="delete_user_ID" class="col-sm-4 col-form-label">User</label>
+							<div class="col-sm-8">
+								<select name="user_ID" id="delete_user_ID" class="form-control">
+									<?php echo $select_users; ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="new_user_ID" class="col-sm-4 col-form-label">Attribute all posts and links to</label>
+							<div class="col-sm-8">
+								<select name="new_user_ID" id="new_user_ID" class="form-control">
+									<option value="novalue" selected="selected">Do not re-attribute</option>
+									<?php echo $select_users; ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<div class="col-sm-9">
+								<div class="alert alert-warning" role="alert">
+									<small>
+										<i class="fa fa-warning"></i>
+										Do not forget to delete this file after use!
+									</small>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<button type="submit" class="btn btn-block btn-lg btn-danger">
+									<i class="fa fa-user-times"></i>
+									Delete this user
+								</button>
+							</div>
+						</div>
+					</form>
+					<hr>
+				</section>
+			</div>
+		</main>
+
+		<footer class="footer" role="siteinfo">
+			<div class="container">
+				<div class="row">
+					<div class="text-xs-center col-sm-8">
+						<div class="alert alert-danger" role="alert">
+							<i class="fa fa-warning"></i>
+							<strong class="text-uppercase">
+								Do not forget to delete this file after use!
+							</strong>
+							<!-- <a class="alert-link" href="?action=delete_file">Click here to delete it now!</a> -->
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<a class="btn btn-lg btn-block btn-danger" href="?action=delete_file">
+							<i class="fa fa-times"></i>
+							Click here to delete it now!
+						</a>
+					</div>
+				</div>
+				<p class="text-muted text-xs-center">
+					<i class="fa fa-github"></i> <a href="https://github.com/BoiteAWeb/WP-Backdoor-User/">WP Backdoor User v<?php echo VERSION; ?></a>&nbsp; &nbsp;<i class="fa fa-globe"></i> <a href="http://boiteaweb.fr">boiteaweb.fr</a>&nbsp; &nbsp;<i class="fa fa-twitter"></i> <a href="http://twitter.com/boiteaweb">@BoiteAWeb</a>
+				</p>
+
+			</div>
+		</footer>
+	</body>
+</html>
