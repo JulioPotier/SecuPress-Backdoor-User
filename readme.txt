@@ -1,10 +1,11 @@
 === WP Backdoor User ===
 
 Script Name: WP Backdoor User
-Script URI: http://www.boiteaweb.fr/WPBU
+Script URI: http://boiteaweb.fr/plugin-backdoor-user-3311.html
 Author URI: http://www.boiteaweb.fr, http://darklg.me
-Author: Julio Potier "@boiteaweb", Kevin "@Darklg"
-Version: 2.0
+Author: Julio Potier "@boiteaweb"
+Contributors: Contributors: Kévin (@DarkLG), Fanchy (fanchy@hotmail.fr)
+Version: 3.0
 Tags: wordpress, security, admin, user, wp
 Licence: GPL
 
@@ -47,5 +48,5 @@ This script is used to create, delete, login, edit a user in a WordPress install
 	- Change his pass,
 	- Click "Edit"
 
-== Hash md5 WP_Backdoor_User.php ==
-80eae6d0c165d9772dd674a0beb7c0fe
+== Hash md5 WP_Backdoor_User.php v3.0 ==
+92805504995625474b551f28f74614f3
