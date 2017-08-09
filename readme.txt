@@ -59,5 +59,5 @@ Just rename, upload, run it and read.
 	- Choose the plugins to be deleted
 	- Or choose the delete all action
 	
-== Hash md5 secupress-backdoor-user.php v3.1 ==
-9a5e8401d7ae12d38a05e994d9315314
+== Hash md5 secupress-backdoor-user.php v3.1.1 ==
+a614b0086b98604506228049f692cdb1
