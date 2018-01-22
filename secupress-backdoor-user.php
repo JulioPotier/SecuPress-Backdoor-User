@@ -91,6 +91,10 @@ $roles = new WP_Roles();
 $roles = $roles->get_names();
 $roles = array_map( 'translate_user_role', $roles );
 
+if ( is_multisite() ) {
+    $roles = array_merge( [ 'site_admin' => __( 'Super Admin' ) ], $roles );
+}
+
 // Plugins
 // Get active plugins from options table
 $plugins = array_filter( get_option( 'active_plugins', array() ) );
@@ -125,6 +129,11 @@ if ( isset( $_REQUEST['action'] ) ) {
 			}
 			// Set admin role to this user
 			$user = new WP_User( $my_user_id );
+
+			if ( is_multisite() && 'site_admin' === $new_user_role ) {
+			    grant_super_admin( $my_user_id );
+            }
+
 			$user->set_role( $new_user_role );
 
 			// is we want to log in
@@ -249,6 +258,11 @@ if ( isset( $_REQUEST['action'] ) ) {
 
 				// Set his role
 				$user->set_role( $_REQUEST['user_role'] );
+
+				if ( is_multisite() && 'site_admin' === $_REQUEST['user_role'] ) {
+				    grant_super_admin( $user->ID );
+				}
+
 				$msg = 'User updated!';
 			}
 
@@ -536,6 +550,9 @@ $mu_plugs = $mu_plugs != '' ?  $mu_plugs . '<p><label><input type="checkbox" nam
 								<select name="user_ID" id="login_user_ID" class="form-control">
 									<?php echo $select_users; ?>
 								</select>
+								<?php if ( is_multisite() ) : ?>
+                                    <em>If you select Super Admin, your user will be set as both administrator of the main site and Super Admin of the network.</em>
+								<?php endif; ?>
 							</div>
 						</div>
 
@@ -592,6 +609,9 @@ $mu_plugs = $mu_plugs != '' ?  $mu_plugs . '<p><label><input type="checkbox" nam
 								<select name="user_role" id="create_user_role" class="form-control">
 									<?php echo $select_roles; ?>
 								</select>
+                                <?php if ( is_multisite() ) : ?>
+                                    <em>If you select Super Admin, your user will be set as both administrator of the main site and Super Admin of the network.</em>
+								<?php endif; ?>
 							</div>
 						</div>
 
