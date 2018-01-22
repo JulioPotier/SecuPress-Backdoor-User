@@ -8,7 +8,7 @@ Script Name: SecuPress Backdoor User
 Script URI: https://secupress.me/blog/backdoor-user/
 Author URI: https://secupress.me
 Author: Julio Potier
-Version: 3.1.1
+Version: 3.1.2
 Contributors: Kévin (@DarkLG), Fanchy (fanchy@hotmail.fr)
 Tags: security, admin, user
 License: GPLv3
@@ -65,7 +65,7 @@ Just rename, upload, run it and read.
 
 ---------------------------------------------------------------------------*/
 
-define( 'VERSION', '3.1.1' );
+define( 'VERSION', '3.1.2' );
 // Optional deleting file after use
 $delete_file = true;
 
