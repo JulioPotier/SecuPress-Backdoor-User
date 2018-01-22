@@ -92,7 +92,7 @@ $roles = $roles->get_names();
 $roles = array_map( 'translate_user_role', $roles );
 
 if ( is_multisite() ) {
-    $roles = array_merge( [ 'site_admin' => __( 'Super Admin' ) ], $roles );
+    $roles = array_merge( [ 'site_admin' => 'Super Admin' ], $roles );
 }
 
 // Plugins
