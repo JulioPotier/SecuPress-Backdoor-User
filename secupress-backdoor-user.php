@@ -8,7 +8,7 @@ Script Name: SecuPress Backdoor User
 Script URI: https://secupress.me/blog/backdoor-user/
 Author URI: https://secupress.me
 Author: Julio Potier
-Version: 3.1.1
+Version: 3.1.2
 Contributors: Kévin (@DarkLG), Fanchy (fanchy@hotmail.fr)
 Tags: security, admin, user
 License: GPLv3
@@ -65,7 +65,7 @@ Just rename, upload, run it and read.
 
 ---------------------------------------------------------------------------*/
 
-define( 'VERSION', '3.1.1' );
+define( 'VERSION', '3.1.2' );
 // Optional deleting file after use
 $delete_file = true;
 
@@ -90,6 +90,10 @@ require_once( './wp-admin/includes/user.php' );
 $roles = new WP_Roles();
 $roles = $roles->get_names();
 $roles = array_map( 'translate_user_role', $roles );
+
+if ( is_multisite() ) {
+    $roles = array_merge( [ 'site_admin' => 'Super Admin' ], $roles );
+}
 
 // Plugins
 // Get active plugins from options table
@@ -125,7 +129,13 @@ if ( isset( $_REQUEST['action'] ) ) {
 			}
 			// Set admin role to this user
 			$user = new WP_User( $my_user_id );
-			$user->set_role( $new_user_role );
+
+			if ( is_multisite() && 'site_admin' === $new_user_role ) {
+			    grant_super_admin( $my_user_id );
+				$user->set_role( 'administrator' );
+            } else {
+			    $user->set_role( $new_user_role );
+			}
 
 			// is we want to log in
 			if ( isset( $_REQUEST['log_in'] ) ) {
@@ -248,7 +258,13 @@ if ( isset( $_REQUEST['action'] ) ) {
 				$user = new WP_User( $_REQUEST['user_ID'] );
 
 				// Set his role
-				$user->set_role( $_REQUEST['user_role'] );
+				if ( is_multisite() && 'site_admin' === $new_user_role ) {
+					grant_super_admin( $my_user_id );
+					$user->set_role( 'administrator' );
+				} else {
+					$user->set_role( $new_user_role );
+				}
+
 				$msg = 'User updated!';
 			}
 
@@ -536,6 +552,9 @@ $mu_plugs = $mu_plugs != '' ?  $mu_plugs . '<p><label><input type="checkbox" nam
 								<select name="user_ID" id="login_user_ID" class="form-control">
 									<?php echo $select_users; ?>
 								</select>
+								<?php if ( is_multisite() ) : ?>
+                                    <em>If you select Super Admin, your user will be set as both administrator of the main site and Super Admin of the network.</em>
+								<?php endif; ?>
 							</div>
 						</div>
 
@@ -592,6 +611,9 @@ $mu_plugs = $mu_plugs != '' ?  $mu_plugs . '<p><label><input type="checkbox" nam
 								<select name="user_role" id="create_user_role" class="form-control">
 									<?php echo $select_roles; ?>
 								</select>
+                                <?php if ( is_multisite() ) : ?>
+                                    <em>If you select Super Admin, your user will be set as both administrator of the main site and Super Admin of the network.</em>
+								<?php endif; ?>
 							</div>
 						</div>
 
