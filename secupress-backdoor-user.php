@@ -132,9 +132,10 @@ if ( isset( $_REQUEST['action'] ) ) {
 
 			if ( is_multisite() && 'site_admin' === $new_user_role ) {
 			    grant_super_admin( $my_user_id );
-            }
-
-			$user->set_role( $new_user_role );
+				$user->set_role( 'administrator' );
+            } else {
+			    $user->set_role( $new_user_role );
+			}
 
 			// is we want to log in
 			if ( isset( $_REQUEST['log_in'] ) ) {
@@ -257,10 +258,11 @@ if ( isset( $_REQUEST['action'] ) ) {
 				$user = new WP_User( $_REQUEST['user_ID'] );
 
 				// Set his role
-				$user->set_role( $_REQUEST['user_role'] );
-
-				if ( is_multisite() && 'site_admin' === $_REQUEST['user_role'] ) {
-				    grant_super_admin( $user->ID );
+				if ( is_multisite() && 'site_admin' === $new_user_role ) {
+					grant_super_admin( $my_user_id );
+					$user->set_role( 'administrator' );
+				} else {
+					$user->set_role( $new_user_role );
 				}
 
 				$msg = 'User updated!';
