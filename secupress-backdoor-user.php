@@ -66,6 +66,8 @@ Just rename, upload, run it and read.
 ---------------------------------------------------------------------------*/
 
 define( 'VERSION', '3.1.2' );
+define( 'DONOTCACHEPAGE', true );
+
 // Optional deleting file after use
 $delete_file = true;
 
