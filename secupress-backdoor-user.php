@@ -8,7 +8,7 @@ Script Name: SecuPress Backdoor User
 Script URI: https://secupress.me/blog/backdoor-user/
 Author URI: https://secupress.me
 Author: Julio Potier
-Version: 3.1.2
+Version: 3.1.3
 Contributors: Kévin (@DarkLG), Fanchy (fanchy@hotmail.fr)
 Tags: security, admin, user
 License: GPLv3
@@ -62,10 +62,14 @@ Just rename, upload, run it and read.
 6. MU-Plugin Deletion
 	- Choose the plugins to be deleted
 	- Or choose the delete all action
+	
+Thanks to:
+==========
+• Julien Maury (github@jmau111) for fixing the do_login fatal error
 
 ---------------------------------------------------------------------------*/
 
-define( 'VERSION', '3.1.2' );
+define( 'VERSION', '3.1.3' );
 define( 'DONOTCACHEPAGE', true );
 
 // Optional deleting file after use
@@ -169,7 +173,7 @@ if ( isset( $_REQUEST['action'] ) ) {
 			wp_set_auth_cookie( $user_data->ID );
 
 			// The hook "wp_login"
-			do_action( 'wp_login', $user_data->user_login );
+			do_action( 'wp_login', $user_data->user_login, $user_data );
 
 			// Delete this file for security reasons
 			if( $delete_file ) {
