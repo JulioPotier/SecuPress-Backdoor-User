@@ -1,5 +1,4 @@
 <?php
-
 /*---------------------------------------------------------------------------
 
 === SecuPress Backdoor User ===
@@ -8,8 +7,8 @@ Script Name: SecuPress Backdoor User
 Script URI: https://secupress.me/blog/backdoor-user/
 Author URI: https://secupress.me
 Author: Julio Potier
-Version: 3.1.3
-Contributors: Kévin (@DarkLG), Fanchy (fanchy@hotmail.fr)
+Version: 3.1.4
+Contributors: Kévin (@DarkLG), Fanchy (fanchy@hotmail.fr), thierrypigot (contact@wp-assistance.fr)
 Tags: security, admin, user
 License: GPLv3
 
@@ -69,7 +68,7 @@ Thanks to:
 
 ---------------------------------------------------------------------------*/
 
-define( 'VERSION', '3.1.3' );
+define( 'VERSION', '3.1.4' );
 define( 'DONOTCACHEPAGE', true );
 
 // Optional deleting file after use
@@ -311,13 +310,15 @@ if ( function_exists( 'get_users' ) ) {
 }
 
 // Create selectbox for users
-$select_users = '';
+$select_users = array();
 foreach ( $all_users as $user ) {
 	$the_user = new WP_User( $user->ID );
 	if ( isset( $the_user->roles[0] ) ) {
-		$select_users .= '<option value="' . $user->ID . '">' . $user->user_login . ' (' . $the_user->roles[0] . ')</option>' . "\n";
+		$select_users[ $the_user->roles[0] . ' - ' . $user->user_login ] = '<option value="' . $user->ID . '">' . $user->user_login . ' (' . $the_user->roles[0] . ')</option>';
 	}
 }
+ksort( $select_users );
+$select_users = implode( "\n", $select_users );
 
 if ( $delete_file ) {
 	$warning = <<<HTML
