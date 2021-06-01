@@ -313,8 +313,8 @@ if ( function_exists( 'get_users' ) ) {
 $select_users = array();
 foreach ( $all_users as $user ) {
 	$the_user = new WP_User( $user->ID );
-	if ( isset( $the_user->roles[0] ) ) {
-		$select_users[ $the_user->roles[0] . ' - ' . $user->user_login ] = '<option value="' . $user->ID . '">' . $user->user_login . ' (' . $the_user->roles[0] . ')</option>';
+	if ( ! empty( $the_user->roles ) ) {
+		$select_users[ reset( $the_user->roles ) . ' - ' . $user->user_login ] = '<option value="' . $user->ID . '">' . $user->user_login . ' (' . implode( ', ', $the_user->roles ) . ')</option>';
 	}
 }
 ksort( $select_users );
