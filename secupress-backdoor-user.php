@@ -81,7 +81,10 @@ if ( 'secupress-backdoor-user.php' === strtolower( basename( __FILE__ ) ) ) {
 
 // Load WordPress
 while ( ! is_file( 'wp-load.php' ) ) {
-	if ( is_dir( '..' ) && getcwd() != '/' ) {
+	if ( is_dir( 'wp' ) ) {
+		// In case WP is loaded as a Composer dependency
+		chdir( 'wp' );
+	} elseif ( is_dir( '..' ) && getcwd() != '/' ) {
 		chdir( '..' );
 	} else {
 		die( 'Could not find WordPress!' );
