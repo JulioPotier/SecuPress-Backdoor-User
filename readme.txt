@@ -24,7 +24,7 @@ Just rename, upload, run it and read.
 3. Go to this file in your favorite browser
 4. 4 users choices, create user, delete user, log in with a user, edit role or password for a user
 5. 2 plugins choices, deactivate all or choose the good ones.
-6. Do not forget to delete the file after use, it will be automatically deleted.
+6. Do not forget to delete the file after use, it will not be automatically deleted.
 
 
 == Usage ==
